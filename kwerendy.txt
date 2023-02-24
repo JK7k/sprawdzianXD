@@ -1,0 +1,22 @@
+1. create database football;
+2. CREATE TABLE `football`.`pilkarz` ( `idpilkarz` INT NOT NULL AUTO_INCREMENT ,  `imie` VARCHAR(45) NOT NULL ,  `nazwisko` VARCHAR(45) NOT NULL ,  `pozycja` VARCHAR(45) NOT NULL ,  `data_urodzenia` DATE NOT NULL ,  `numer` VARCHAR(45) NOT NULL ,  `idklub` INT NOT NULL ,    PRIMARY KEY  (`idpilkarz`)) ENGINE = InnoDB;
+3. CREATE TABLE `football`.`statystyka` ( `idstatystyka` INT NOT NULL AUTO_INCREMENT ,  `iloscPodan` INT NOT NULL ,  `iloscCelnychPodan` INT NOT NULL ,  `strzalyCelne` INT NOT NULL ,  `strzalyNieCelne` INT NOT NULL ,  `zdobyteBramki` INT NOT NULL ,  `asysty` INT NOT NULL ,  `zolteKartki` INT NOT NULL ,  `czerwoneKartki` INT NOT NULL ,  `dystans` FLOAT NOT NULL ,  `idpilkarz` INT NOT NULL ,  `idmecz` INT NOT NULL ,    PRIMARY KEY  (`idstatystyka`)) ENGINE = InnoDB;
+4.CREATE TABLE `football`.`mecz` ( `idmecz` INT NOT NULL AUTO_INCREMENT ,  `data` DATE NOT NULL ,  `idgospodarz` INT NOT NULL ,  `idgoscie` INT NOT NULL ,  `wynik` VARCHAR(10) NOT NULL ,    PRIMARY KEY  (`idmecz`)) ENGINE = InnoDB;
+5.INSERT INTO `mecz` (`idmecz`, `data`, `idgospodarz`, `idgoscie`, `wynik`) VALUES (NULL, '2021-09-11', '5', '2', '2:1');
+6.INSERT INTO `mecz` (`idmecz`, `data`, `idgospodarz`, `idgoscie`, `wynik`) VALUES (NULL, '2021-09-14', '6', '5', '0:2');
+7.INSERT INTO `statystyka` (`idstatystyka`, `iloscPodan`, `iloscCelnychPodan`, `strzalyCelne`, `strzalyNieCelne`, `zdobyteBramki`, `asysty`, `zolteKartki`, `czerwoneKartki`, `dystans`, `idpilkarz`, `idmecz`) VALUES (NULL, '10', '8', '0', '1', '0', '0', '0', '0', '10.3', '1', '1');
+8.INSERT INTO `statystyka` (`idstatystyka`, `iloscPodan`, `iloscCelnychPodan`, `strzalyCelne`, `strzalyNieCelne`, `zdobyteBramki`, `asysty`, `zolteKartki`, `czerwoneKartki`, `dystans`, `idpilkarz`, `idmecz`) VALUES (NULL, '15', '11', '1', '3', '0', '0', '1', '0', '11.3', '2', '1');
+9.INSERT INTO `statystyka` (`idstatystyka`, `iloscPodan`, `iloscCelnychPodan`, `strzalyCelne`, `strzalyNieCelne`, `zdobyteBramki`, `asysty`, `zolteKartki`, `czerwoneKartki`, `dystans`, `idpilkarz`, `idmecz`) VALUES (NULL, '34', '27', '2', '4', '1', '0', '0', '0', '13.9', '3', '2');
+10.INSERT INTO `pilkarz` (`idpilkarz`, `imie`, `nazwisko`, `pozycja`, `data_urodzenia`, `numer`, `idklub`) VALUES (NULL, 'Janusz', 'Palikot', 'napastnik', '1990-02-13', '5', '5');
+11.INSERT INTO `pilkarz` (`idpilkarz`, `imie`, `nazwisko`, `pozycja`, `data_urodzenia`, `numer`, `idklub`) VALUES (NULL, 'Mateusz', 'Morawsko', 'obronca', '1995-7-5', '6', '2');
+12.INSERT INTO `pilkarz` (`idpilkarz`, `imie`, `nazwisko`, `pozycja`, `data_urodzenia`, `numer`, `idklub`) VALUES (NULL, 'Tomasz', 'Kaczor', 'pomocnik', '200-9-22', '7', '5');
+13.SELECT * FROM `statystyka`
+14.ALTER TABLE `mecz` ADD `frekwencja` INT NOT NULL AFTER `idmecz`;
+15.ALTER TABLE `mecz` CHANGE `wynik` `wynikMecz` VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+16.select avg(strzalyCelne+strzalyNieCelne) from statystyka;
+17.SELECT idpilkarz from `statystyka` WHERE `idmecz` = 1;
+18.SELECT * FROM `pilkarz` WHERE `data_urodzenia` BETWEEN '1992-01-01' AND '1999-12-31'
+19.SELECT COUNT(*) FROM statystyka WHERE strzalyCelne>0 & strzalyNieCelne>0;
+20.CREATE USER 'poprawa'@'%' IDENTIFIED VIA mysql_native_password USING '***';GRANT SELECT, INSERT, UPDATE ON *.* TO 'poprawa'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `football`.* TO 'poprawa'@'%';
+21.REVOKE ALL PRIVILEGES ON *.* FROM 'poprawa'@'%'; REVOKE GRANT OPTION ON *.* FROM 'poprawa'@'%'; GRANT SELECT, INSERT ON *.* TO 'poprawa'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+22.SELECT MAX(dystans),idpilkarz FROM statystyka;
